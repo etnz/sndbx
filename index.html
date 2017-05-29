@@ -2,8 +2,50 @@
 <html>
 <head>
 	<title>Sandbox</title>
-</head>
+	<!-- Including jquery to simplify the ajax call through a CDN-->
+	<script 
+		src="https://code.jquery.com/jquery-3.2.1.min.js" 
+		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" 
+		crossorigin="anonymous">
+	</script>
+
+	<script type="text/javascript">
+		// run the main on document ready 
+		$( document ).ready(function() {
+    		console.log( "start page" );
+
+    		mkRepository(); // call the make title
+
+		});
+
+		var repository = null;
+		var title = null;
+
+		function mkTitle(){
+			$("h1").text = repository.name;
+		}
+
+		function mkRepository(){
+			$.getJSON({
+				url : "https://github.com/api/v3/repos/etnz/sndbx",
+				done: function(result){
+						repository = result;
+						// call all dependents on repository
+						mkTitle();
+    				},
+    			header:{
+    				"Origin": "github.io",
+    			}
+				
+			}
+    		);
+		}		
+	</script>
+
 <body>
-Hello
+
+<!-- page title, the content is to be replaced by script by the github repo's description-->
+<h1>Title</h1>
+
 </body>
 </html>
