@@ -26,16 +26,18 @@
 		}
 
 		function mkRepository(){
-			$.getJSON({
+			$.ajax({
 				url : "https://github.com/api/v3/repos/etnz/sndbx",
-				done: function(result){
+				dataType: "json", 
+				cache: false, 
+				success: function (data, textStatus, jqXHR)
 						repository = result;
 						// call all dependents on repository
 						mkTitle();
-    				},
-    			header:{
-    				"Origin": "https://etnz.github.io",
-    			}
+    				}
+    			// header:{
+    			// 	"Origin": "https://etnz.github.io",
+    			// }
 				
 			}
     		);
